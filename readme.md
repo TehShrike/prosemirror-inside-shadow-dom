@@ -1,3 +1,5 @@
+[Relevant Github issue](https://github.com/ProseMirror/prosemirror/issues/1413)
+
 # Prosemirror issues inside a shadow dom
 
 To reproduce locally:
