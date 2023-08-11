@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width'>
+
+    <style type="text/css">
+      body {
+        background-color: lightgray;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .editor-container {
+        max-width: 700px;
+      }
+    </style>
+    <link rel="stylesheet" href="./style.css">
+  </head>
+  <body>
+    <script type=module>
+      import {
+        exampleSetup,
+        Schema,
+        schema,
+        addListNodes,
+        EditorState,
+        EditorView,
+      } from './prosemirror-modules.js'
+
+      const createEditor = (root) => {
+        const mySchema = new Schema({
+          nodes: addListNodes(schema.spec.nodes, "paragraph block*", "block"),
+          marks: schema.spec.marks,
+        });
+
+        return new EditorView(root, {
+          state: EditorState.create({
+            schema: mySchema,
+            plugins: exampleSetup({schema:mySchema}),
+          }),
+        });
+      };
+
+      class CustomElement extends HTMLElement {
+        constructor() {
+          super();
+
+          const shadow = this.attachShadow({ mode: "closed" });
+
+          shadow.innerHTML = `
+            <link rel="stylesheet" type="text/css" href="./style.css">
+          `;
+
+          createEditor(shadow);
+        }
+      }
+
+      window.customElements.define("workshop-editor", CustomElement);
+
+      createEditor(document.getElementById('editor'))
+
+    </script>
+
+    <h1>This is the version inside of a shadow dom</h1>
+    <div class="editor-container">
+      <workshop-editor></workshop-editor>
+    </div>
+
+    <h1>This is the same thing, but not inside the shadow dom</h1>
+    <div id="editor"></div>
+  </body>
+</html>
