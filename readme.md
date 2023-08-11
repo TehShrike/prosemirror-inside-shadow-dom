@@ -44,8 +44,8 @@ The editor inside the shadow dom should behave the way that the one outside the 
 
 # Observed behavior in the shadow dom version
 
-In Firefox and Chrome, the icons in the buttons in the menu bar are not visible.
+In Firefox and Chrome and Safari, the icons in the buttons in the menu bar are not visible.
 
-In Chrome, the editor container box is really large.
+In Chrome and Safari, the editor container box is really large.
 
 In Firefox, attempting to select text with Cmd+shift+left/right does not do anything.
